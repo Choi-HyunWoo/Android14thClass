@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.android14thclass.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit_dbName"
+            android:layout_width="0dp"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btn_usingDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DB 사용"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit_tableName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btn_createTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TABLE 생성"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_insert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="데이터 추가하기" />
+
+    <Button
+        android:id="@+id/btn_query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="데이터 조회하기" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f0f000"
+        android:text=" $ "
+        android:id="@+id/text_console" />
+</LinearLayout>
