@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends ActionBarActivity {
     EditText editDBName;
     EditText editTableName;
     TextView consoleView;
+    ScrollView scrollView;
 
     String databaseName;
     String tableName;
@@ -31,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
         editDBName = (EditText) findViewById(R.id.edit_dbName);
         editTableName = (EditText) findViewById(R.id.edit_tableName);
         consoleView = (TextView) findViewById(R.id.text_console);
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
 
         editDBName.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -58,6 +61,12 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 openDatabase();
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                });
             }
         });
         btn = (Button) findViewById(R.id.btn_createTable);
@@ -65,6 +74,12 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 createTable();
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                });
             }
         });
         btn = (Button) findViewById(R.id.btn_insert);
@@ -72,6 +87,12 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 insert();
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                });
             }
         });
 
@@ -80,6 +101,12 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 select();
+                scrollView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.fullScroll(View.FOCUS_DOWN);
+                    }
+                });
             }
         });
     }
@@ -94,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             database =  openOrCreateDatabase(databaseName, Context.MODE_PRIVATE, null);
             Log.d("SQLite",  "USING DATABASE " + databaseName);
-            printInConsole(databaseName+" 데이터베이스를 사용합니다...");
+            printInConsole( " "+databaseName+" 데이터베이스를 사용합니다..." );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,10 +139,10 @@ public class MainActivity extends ActionBarActivity {
                         + " mobile text "
                         + " ) ");
                 Log.d("SQLite", "TABLE CREATED " + tableName);
-                printInConsole(tableName + " 테이블을 생성합니다.");
+                printInConsole( " " + tableName + " 테이블을 생성합니다." );
             } else {
                 Log.d("SQLite", "DATABASE IS NOT OPEN");
-                printInConsole("데이터베이스를 먼저 열어야 합니다.");
+                printInConsole( " 데이터베이스를 먼저 열어야 합니다." );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,9 +158,9 @@ public class MainActivity extends ActionBarActivity {
             if (databaseName != null) {
                 database.execSQL("INSERT INTO " + tableName + "(name, age, mobile) VALUES "
                         + " ('소녀시대', 20 , '010-9600-7673') ");
-                printInConsole("데이터를 추가했습니다.");
+                printInConsole( " 데이터를 추가했습니다." );
             } else {
-                printInConsole("데이터베이스를 먼저 열어야 합니다.");
+                printInConsole( " 데이터베이스를 먼저 열어야 합니다." );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
             Cursor cursor = database.rawQuery("SELECT name, age, mobile FROM " + tableName, null);
 
             int count = cursor.getCount();
-            printInConsole("결과 레코드의 갯수 : " + count);
+            printInConsole( " 결과 레코드의 갯수 : " + count);
 
             for (int i=0; i<count; i++) {
                 cursor.moveToNext();
@@ -156,12 +183,12 @@ public class MainActivity extends ActionBarActivity {
                 int age = cursor.getInt(1);
                 String mobile = cursor.getString(2);
 
-                printInConsole("레코드 # "+ i + "   이름: " + name + ", 나이: "+ age + ", 번호: "+ mobile);
+                printInConsole( " 레코드 # "+ i + "\n   이름: " + name + ", 나이: "+ age + ", 번호: "+ mobile);
             }
 
-            printInConsole("데이터를 조회했습니다.");
+            printInConsole( " 데이터를 조회했습니다." );
         } else {
-            printInConsole("데이터베이스를 먼저 열어야 합니다.");
+            printInConsole( " 데이터베이스를 먼저 열어야 합니다." );
         }
     }
 }
